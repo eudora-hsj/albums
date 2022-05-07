@@ -20,7 +20,7 @@ onMounted(() => {
 <template lang="pug">
 .container
   .row
-    .col-6.col-sm-6.col-md-4.col-lg-3.col-xl-2(v-for="(item, idx) in category" :key="idx")() 
+    .col-6.col-sm-6.col-md-4.col-lg-3.col-xl-2(v-for="(item, idx) in category" :key="idx") 
       .card.cursor-pointer(@click="goAlbum(item.index)")
         img.card-img-top(:src="item.cover" :alt='item.name')
         .card-body
