@@ -5,7 +5,8 @@ const apiParamsClientID = {
     }
 }
 
-const apiAlbumsUrl =  "/api/3/account/dawnhsj/submissions"
+const apiAlbumsUrl =  "https://api.imgur.com/3/account/dawnhsj/submissions"
+// const apiAlbumsUrl =  "/api/3/account/dawnhsj/submissions"
 
 export default {
     apiParamsClientID,

@@ -24,7 +24,8 @@ const showLightbox = (img, idx) => {
   curPhotoSrc.value = $main.setImgSizeSrc(img.link, 'h')
 }
 
-const apiAlbumUrl = `/api/3/album/${route.query.id}`
+const apiAlbumUrl = `https://api.imgur.com/3/album/${route.query.id}`
+// const apiAlbumUrl = `/api/3/album/${route.query.id}`
 const gethData = () => {
   fetch(apiAlbumUrl, $api.apiParamsClientID).then(res => res.json()).then(res => {
     setData(res.data)
