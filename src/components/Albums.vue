@@ -4,10 +4,10 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const category = inject('$category')
 const photosList = inject('$photosList')
-const goAlbum = (idx) => {
-  router.push({ 
+const goAlbum = (id) => {
+  router.push({
     name: 'Album',
-    query: { idx }
+    query: { id }
   })
 }
 
@@ -20,11 +20,12 @@ onMounted(() => {
 <template lang="pug">
 .container
   .row
-    .col-6.col-sm-6.col-md-4.col-lg-3.col-xl-2(v-for="(item, idx) in category" :key="idx") 
-      .card.cursor-pointer(@click="goAlbum(item.index)")
-        img.card-img-top(:src="item.cover" :alt='item.name')
+    .col-6.col-sm-6.col-md-4.col-lg-3.col-xl-2(v-for="(item) in category" :key="item.id")
+      .card.cursor-pointer(@click="goAlbum(item.id)")
+        img.card-img-top(:src="item.cover" :alt='item.description')
         .card-body
-          h5.card-title {{item.name}} ({{item.count}})
+          h5.card-title {{item.title}} ({{item.count}})
+          //p {{item.description}}
 </template>
 
 <style scoped>

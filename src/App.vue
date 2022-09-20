@@ -1,25 +1,34 @@
 <script setup>
 
 import { provide, ref, onMounted } from 'vue'
+import $main from '../src/mixin/main'
+import $api from '../src/mixin/api'
 
-const apiUrl = "https://dawn-hsj.github.io/albums/data.json"
 let photosList = ref({})
 let category = ref([])
 provide('$photosList', photosList)
 provide('$category', category)
 const fetchData = () => {
-  fetch(apiUrl).then(res => res.json()).then(res => {
-    photosList.value = res
-    setData(res)
+  fetch($api.apiAlbumsUrl, $api.apiParamsClientID).then(res => res.json()).then(res => {
+    // photosList.value = res
+    setData(res.data)
   })
 }
-const setData = (data) => {
-  category.value = data.map((album, idx) => {
+const setData = (albums) => {
+  albums.forEach((album, idx)=>{
+    albums[idx].cover_url = $main.setImgSizeSrc(album.images[0].link, 'm')
+    albums[idx].link = `/albums/${album.id}`
+  })
+  category.value = albums.map((album) => {
     return {
-      index: idx,
-      name: album.name,
-      cover: album.images[0].src,
-      count: album.images.length
+      id: album.id,
+      title: album.title,
+      link: album.link,
+      cover: album.cover_url,
+      count: album['images_count'],
+      tags: album.tags,
+      description: album.description,
+      datetime: album.datetime
     }
   })
 }

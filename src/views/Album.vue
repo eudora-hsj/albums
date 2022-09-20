@@ -1,6 +1,9 @@
 <script setup>
 import { ref, inject, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import $main from '../../src/mixin/main'
+import $api from '../../src/mixin/api'
+
 const route = useRoute()
 const router = useRouter()
 const photosList = inject('$photosList')
@@ -17,11 +20,22 @@ const hideLightbox = () => {
 const showLightbox = (img, idx) => {
   isShowLightBox.value = true
   curPhotoIdx.value = idx
-  curPhotoSrc.value = img.src
+  // curPhotoSrc.value = img.link
+  curPhotoSrc.value = $main.setImgSizeSrc(img.link, 'h')
 }
 
-imgsList.value = photosList.value[route.query.idx].images
+const apiAlbumUrl = `/api/3/album/${route.query.id}`
+const gethData = () => {
+  fetch(apiAlbumUrl, $api.apiParamsClientID).then(res => res.json()).then(res => {
+    setData(res.data)
+  })
+}
+const setData = (album) => {
+  photosList.value[route.query.id] = album
+  imgsList.value = album.images
+}
 onMounted(() => {
+  gethData(route.query.id)
 })
 
 </script>
@@ -33,9 +47,9 @@ onMounted(() => {
   button.btn.btn-secondary.btn-sm(type='button' @click="goBack()") Back
   p
   .row
-    .col-6.col-sm-6.col-md-6.col-lg-4.col-xl-3(v-for="(img, idx) in imgsList" :key="img.id" data-toggle="lightbox" data-gallery="example-gallery") 
+    .col-6.col-sm-6.col-md-6.col-lg-4.col-xl-3(v-for="(img, idx) in imgsList" :key="img.id" data-toggle="lightbox" data-gallery="example-gallery")
       .card(@click="showLightbox(img, idx)")
-        img.card-img-top(:src="img.src" :alt='img.title')
+        img.card-img-top(:src="$main.setImgSizeSrc(img.link, 'm')" :alt='img.title')
 </template>
 
 <style scoped>
