@@ -18,38 +18,80 @@ onMounted(() => {
 </script>
 
 <template lang="pug">
-.container
-  .row
-    .col-6.col-sm-6.col-md-4.col-lg-3.col-xl-2(v-for="(item) in category" :key="item.id")
+.container-fluid
+  .row.albums-list
+    .col-12.col-sm-12.col-md-6.col-lg-4.col-xl-3.col-xxl-2(v-for="(item) in category" :key="item.id")
       .card.cursor-pointer(@click="goAlbum(item.id)")
-        img.card-img-top(:src="item.cover" :alt='item.description')
+        .card-img-top
+          img(:src="item.cover" :alt='item.description')
         .card-body
-          h5.card-title {{item.title}} ({{item.count}})
+          p.card-title
+            span.title {{item.title}}
+            span.count {{item.count}}
           //p {{item.description}}
 </template>
 
-<style scoped>
-.container {
-  /* TODO */
-  padding-top: 1rem
+<style lang="scss" scoped>
+.albums-list {
+  padding: 20px;
 }
 .card {
-    margin-bottom: 1rem;
-    cursor: pointer;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  border: 0;
+  border-radius: 0;
 }
 .card-title {
-  font-size: 1rem;
   margin-bottom: 0;
-  text-align: center
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  //text-align: center;
+  //text-align: left;
+  padding-left: 10px;
+  span {
+    &.title {
+      font-size: 0.95rem;
+    }
+    &.count {
+      //float: right;
+      margin-right: 8px;
+      //margin-top: 2px;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.85rem;
+    }
+  }
 }
 .card-body {
-    padding: 0.5rem 0;
+  padding: 0.5rem 0;
+  background: rgba(0,0,0,0.7);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 1px;
+  width: 100%;
 }
 .card-img-top {
+  height: 0;
+  //height: 15vw;
+  //min-height: 5.5rem;
+  //max-height: 8rem;
+  border-radius: 0;
+  box-shadow: 0 0 10px rgb(0 0 0 / 60%);
+  padding-bottom: 60%;
+  overflow: hidden;
+  position: relative;
+  img {
     width: 100%;
-    height: 15vw;
-    min-height: 5.5rem;
-    max-height: 8rem;
-    object-fit: cover;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    min-height: 100%;
+    max-width: 100%;
+    width: 100%;
+
+  }
 }
 </style>
