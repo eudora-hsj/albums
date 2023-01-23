@@ -7,7 +7,6 @@ const setImgSizeSrc = (src, size) => {
             winW > 359 ? 'l':  // 940~360
             // winW > 320 ? 'm': // 360
             'm'
-    console.warn(winW)
     let preS = 'https://i.imgur.com/'
     let ary = src.split('.')
     let lastS = `${size}.${ary[ary.length-1]}`

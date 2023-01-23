@@ -46,17 +46,13 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   align-content: center;
-  //text-align: center;
-  //text-align: left;
   padding-left: 10px;
   span {
     &.title {
       font-size: 0.95rem;
     }
     &.count {
-      //float: right;
       margin-right: 8px;
-      //margin-top: 2px;
       color: rgba(255, 255, 255, 0.4);
       font-size: 0.85rem;
     }
@@ -73,13 +69,9 @@ onMounted(() => {
   width: 100%;
 }
 .card-img-top {
-  height: 0;
-  //height: 15vw;
-  //min-height: 5.5rem;
-  //max-height: 8rem;
+  height: 8rem;
   border-radius: 0;
-  box-shadow: 0 0 10px rgb(0 0 0 / 60%);
-  padding-bottom: 60%;
+  box-shadow: 0 0 2px rgb(255 255 255 / 60%);
   overflow: hidden;
   position: relative;
   img {

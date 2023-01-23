@@ -13,6 +13,11 @@ export default defineConfig({
                 target: 'https://api.imgur.com/',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, '')
+            },
+            '/apiUser': {
+                target: 'https://dawnhsj.imgur.com/',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, '')
             }
         }
     },
