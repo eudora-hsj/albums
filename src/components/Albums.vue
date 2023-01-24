@@ -20,7 +20,7 @@ onMounted(() => {
 <template lang="pug">
 .container-fluid
   .row.albums-list
-    .col-12.col-sm-12.col-md-6.col-lg-4.col-xl-3.col-xxl-2(v-for="(item) in category" :key="item.id")
+    .col-12.col-sm-12.col-md-6.col-lg-4.col-xl-3.col-xxl-3(v-for="(item) in category" :key="item.id")
       .card.cursor-pointer(@click="goAlbum(item.id)")
         .card-img-top
           img(:src="item.cover" :alt='item.description')
@@ -34,6 +34,8 @@ onMounted(() => {
 <style lang="scss" scoped>
 .albums-list {
   padding: 20px;
+  max-width: 1280px;
+  margin: auto;
 }
 .card {
   margin-bottom: 1rem;
@@ -71,19 +73,25 @@ onMounted(() => {
 .card-img-top {
   height: 8rem;
   border-radius: 0;
-  box-shadow: 0 0 2px rgb(255 255 255 / 60%);
+  //box-shadow: 0 0 2px rgb(255 255 255 / 60%);
   overflow: hidden;
   position: relative;
   img {
-    width: 100%;
     position: absolute;
     left: 50%;
     transform: translate(-50%,-50%);
     top: 50%;
     min-height: 100%;
-    max-width: 100%;
-    width: 100%;
-
+    min-width: 100%;
+    filter: brightness(0.8);
   }
+  &:hover {
+    img {
+      filter:initial;
+    }
+  }
+}
+.col-lg-4 .card-img-top {
+  height: 10rem;
 }
 </style>

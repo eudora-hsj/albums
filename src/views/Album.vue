@@ -79,8 +79,15 @@ button.btn.btn-secondary.btn-lg {
     color: #fff;
   }
 }
+.container-fluid {
+  padding: 20px;
+  margin: auto;
+  max-width: 1280px;
+}
 .albums-list {
   padding: 20px;
+  max-width: 1280px;
+  margin: auto;
 }
 .card {
   margin-bottom: 1rem;
@@ -90,6 +97,12 @@ button.btn.btn-secondary.btn-lg {
     border-radius: 0;
   }
   img {
+    filter: brightness(0.9);
+  }
+  &:hover {
+    img {
+      filter:initial;
+    }
   }
 }
 .card-img-top {
@@ -98,7 +111,7 @@ button.btn.btn-secondary.btn-lg {
   min-height: 8rem;
   max-height: 12rem;
   object-fit: cover;
-  box-shadow: 0 0 2px rgb(255 255 255 / 60%);
+  //box-shadow: 0 0 2px rgb(255 255 255 / 60%);
 }
 .lightBox {
   background: rgba(0, 0, 0, 0.9);
@@ -109,7 +122,7 @@ button.btn.btn-secondary.btn-lg {
   cursor: pointer;
 }
 .lightBox span {
-  filter: drop-shadow(0 0 1px #FFF);
+  filter: drop-shadow(0 0 1px #ddd);
   position: absolute;
   top: 50%;
   left: 50%;

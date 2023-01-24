@@ -15,13 +15,13 @@ const fetchData = () => {
   })
 }
 const setData = (albums) => {
-  
+
   albums.forEach((album, idx)=>{
     albums[idx].cover_url = $main.setImgSizeSrc(album.images[0].link, 'm')
     albums[idx].link = `/albums/${album.id}`
     if ($api.titleRenameList.hasOwnProperty(album.id)) albums[idx].title = $api.titleRenameList[album.id]
   })
-  
+
   category.value = albums.map((album) => {
     return {
       id: album.id,
@@ -42,7 +42,7 @@ onMounted(() => {
 
 </script>
 <template>
-  <header></header>
+  <header />
   <router-view />
   <footer>
     <!-- 日媱 -->

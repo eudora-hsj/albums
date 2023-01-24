@@ -4,15 +4,17 @@ const apiParamsClientID = {
         Authorization: 'Client-ID e32885c0558c4f1'
     }
 }
-
+const headerCover = 'https://cdn4.eyeem.com/thumb/686f88029a7e7b80d68b9b887533c9bc7ac9a248-1582630816077/w/2600'
 const titleRenameList = {
-  'PzbnjOo': '[時節] 聖誕',
-  '8NwHlVq': '[異國] 澳門',
-  'wyfx2wA': '[異國] 韓國',
-  'IK5DmkX': '[四季] 夏',
-  'IK5DmkX': '[四季] 秋',
-  'AAZjpPn': '[四季] 冬',
-  '9treTDX': '[四季] 春'
+  'PzbnjOo': 'Christmas',
+  '8NwHlVq': 'Macao',
+  'wyfx2wA': 'Korea',
+  'IK5DmkX': 'Summer',
+  // 'IK5DmkX': '[Season] Fall',
+  'AAZjpPn': 'Winter',
+  '9treTDX': 'Spring',
+  'AJLJXXJ': 'Sky'
+
 }
 
 const apiAlbumsUrl =  "https://api.imgur.com/3/account/dawnhsj/submissions"
@@ -21,5 +23,6 @@ const apiAlbumsUrl =  "https://api.imgur.com/3/account/dawnhsj/submissions"
 export default {
     apiParamsClientID,
     apiAlbumsUrl,
-    titleRenameList
+    titleRenameList,
+    headerCover
 }
