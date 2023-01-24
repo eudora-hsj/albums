@@ -4,9 +4,11 @@ import { useRoute, useRouter } from 'vue-router'
 import $main from '../../src/mixin/main'
 import $api from '../../src/mixin/api'
 
+const albumsObj = inject('$albumsObj')
+
 const route = useRoute()
 const router = useRouter()
-const photosList = inject('$photosList')
+// const photosList = inject('$photosList')
 const imgsList = ref([])
 const isShowLightBox = ref(false)
 const curPhotoIdx = ref(0)
@@ -25,17 +27,20 @@ const showLightbox = (img, idx) => {
 }
 
 // const apiAlbumUrl = `https://api.imgur.com/3/album/${route.query.id}`
-const apiAlbumUrl = `https://api.imgur.com/3/album/${route.query.id}/images`
+// const apiAlbumUrl = `https://api.imgur.com/3/album/${route.query.id}/images`
 // const apiAlbumUrl = `/api/3/album/${route.query.id}`
-const gethData = () => {
-  fetch(apiAlbumUrl, $api.apiParamsClientID).then(res => res.json()).then(res => {
-    setData(res.data)
-  })
+const gethData = (albumId) => {
+  imgsList.value = albumsObj.value[albumId].images
+
+
+  // fetch(apiAlbumUrl, $api.apiParamsClientID).then(res => res.json()).then(res => {
+  //   setData(res.data)
+  // })
 }
-const setData = (album) => {
-  photosList.value[route.query.id] = album
-  imgsList.value = album
-}
+// const setData = (album) => {
+  // photosList.value[route.query.id] = album
+  // imgsList.value = album
+// }
 onMounted(() => {
   gethData(route.query.id)
 })

@@ -4,40 +4,31 @@ import { provide, ref, onMounted } from 'vue'
 import $main from '../src/mixin/main'
 import $api from '../src/mixin/api'
 
-let photosList = ref({})
-let category = ref([])
-provide('$photosList', photosList)
-provide('$category', category)
-const fetchData = () => {
-  fetch($api.apiAlbumsUrl, $api.apiParamsClientID).then(res => res.json()).then(res => {
-    // photosList.value = res
-    setData(res.data)
-  })
-}
-const setData = (albums) => {
+let albumsIdAry = ref([])
+let albumsObj = ref({})
+provide('$albumsIdAry', albumsIdAry)
+provide('$albumsObj', albumsObj)
 
-  albums.forEach((album, idx)=>{
-    albums[idx].cover_url = $main.setImgSizeSrc(album.images[0].link, 'm')
-    albums[idx].link = `/albums/${album.id}`
-    if ($api.titleRenameList.hasOwnProperty(album.id)) albums[idx].title = $api.titleRenameList[album.id]
-  })
-
-  category.value = albums.map((album) => {
-    return {
-      id: album.id,
-      title: album.title,
-      link: album.link,
-      cover: album.cover_url,
-      count: album['images_count'],
-      tags: album.tags,
-      description: album.description,
-      datetime: album.datetime
-    }
+albumsIdAry.value = $api.albumsIdAry
+albumsObj.value = $api.albumsObj
+const fetchAlbum = (albumId) => {
+  const url = `${$api.apiAlbumUrlPre}/${albumId}`
+  fetch(url, $api.apiParamsClientID).then(res => res.json()).then(res => {
+    const {images, images_count, title, cover, datetime} = res.data
+    albumsObj.value[albumId].images = images
+    albumsObj.value[albumId].images_count = images_count
+    albumsObj.value[albumId].datetime = datetime
+    if (!albumsObj.value[albumId].title) albumsObj.value[albumId].title = title
+    if (!albumsObj.value[albumId].cover) albumsObj.value[albumId].cover = cover
+    albumsObj.value[albumId].cover_url = $main.setImgSizeSrc(`https://i.imgur.com/${albumsObj.value[albumId].cover}.jpg`, 'm')
+    albumsObj.value[albumId].link = `/albums/${albumId}`
   })
 }
 
 onMounted(() => {
-  fetchData()
+  albumsIdAry.value.forEach(album => {
+    fetchAlbum(album)
+  })
 })
 
 </script>

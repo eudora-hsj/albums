@@ -2,8 +2,8 @@
 import { inject, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
-const category = inject('$category')
-const photosList = inject('$photosList')
+const albumsIdAry = inject('$albumsIdAry')
+const albumsObj = inject('$albumsObj')
 const goAlbum = (id) => {
   router.push({
     name: 'Album',
@@ -20,14 +20,14 @@ onMounted(() => {
 <template lang="pug">
 .container-fluid
   .row.albums-list
-    .col-12.col-sm-12.col-md-6.col-lg-4.col-xl-3.col-xxl-3(v-for="(item) in category" :key="item.id")
-      .card.cursor-pointer(@click="goAlbum(item.id)")
+    .col-12.col-sm-12.col-md-6.col-lg-4.col-xl-3.col-xxl-3(v-for="albumId in albumsIdAry" :key="albumId")
+      .card.cursor-pointer(@click="goAlbum(albumId)")
         .card-img-top
-          img(:src="item.cover" :alt='item.description')
+          img(:src="albumsObj[albumId].cover_url" :alt='albumsObj[albumId].description')
         .card-body
           p.card-title
-            span.title {{item.title}}
-            span.count {{item.count}}
+            span.title {{albumsObj[albumId].title}}
+            span.count {{albumsObj[albumId].images_count}}
           //p {{item.description}}
 </template>
 
