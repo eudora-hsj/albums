@@ -9,8 +9,15 @@ let albumsObj = ref({})
 provide('$albumsIdAry', albumsIdAry)
 provide('$albumsObj', albumsObj)
 
-albumsIdAry.value = $api.albumsIdAry
-albumsObj.value = $api.albumsObj
+const fetchAlbums = () => {
+  return new Promise((resolve) => {
+    fetch($api.apiAlbumsListUrl).then(res => res.json()).then( res => {
+      albumsObj.value = res
+      albumsIdAry.value = Object.keys(albumsObj.value)
+      resolve()
+    })
+  })
+}
 const fetchAlbum = (albumId) => {
   const url = `${$api.apiAlbumUrlPre}/${albumId}`
   fetch(url, $api.apiParamsClientID).then(res => res.json()).then(res => {
@@ -26,8 +33,10 @@ const fetchAlbum = (albumId) => {
 }
 
 onMounted(() => {
-  albumsIdAry.value.forEach(album => {
-    fetchAlbum(album)
+  fetchAlbums().then(() => {
+    albumsIdAry.value.forEach(album => {
+      fetchAlbum(album)
+    })
   })
 })
 
